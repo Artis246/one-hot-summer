@@ -10,6 +10,7 @@ body{font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:760px;margin
 h1{font-size:1.9em;margin:.2em 0}h2{font-size:1.2em;margin-top:1.8em}
 .stripes{height:14px;background:linear-gradient(#ee8c1f 0 40%,#db5414 40% 70%,#a82b12 70%);border-radius:3px}
 video,img{width:100%;height:auto;border-radius:8px;display:block}
+video.tall{max-height:88vh;width:auto;max-width:100%;margin:0 auto}
 .btn{display:inline-block;background:#3b291e;color:#faecd2;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;margin:14px 0}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
 .cards a{font-size:.85em;color:#2a1a10;text-decoration:none}
@@ -22,7 +23,13 @@ small{color:#6b5848}
 summer of 1990. Its Tour Pickwick ride-along takes you around the whole lake in the family boat - past the marinas, the
 state parks, Pickwick Dam and the lock, the beach coves and the places people stop to eat - with a true bit of lake
 history from Dad at the stops. You can stay awhile anywhere, or send a postcard to someone who misses the lake.</p>
-<video controls playsinline preload="metadata" poster="poster.jpg" src="tour-pickwick.mp4"></video>
+<video id="tourvid" controls playsinline preload="metadata"></video>
+<script>/* phone (tall screen) gets the tall video, computer/landscape gets the wide one; switches if the screen turns */
+(function(){var v=document.getElementById("tourvid"),q=matchMedia("(orientation: portrait)");
+function pick(){var tall=q.matches,src=tall?"tour-phone.mp4":"tour-wide.mp4";if(v.getAttribute("src")===src)return;
+v.poster=tall?"poster-phone.jpg":"poster-wide.jpg";v.src=src;v.className=tall?"tall":"wide"}
+pick();(q.addEventListener?q.addEventListener("change",pick):q.addListener(pick))})();</script>
+<noscript><video controls playsinline preload="metadata" poster="poster-wide.jpg" src="tour-wide.mp4"></video></noscript>
 <a class="btn" href="https://apps.apple.com/us/app/one-hot-summer-pickwick-lake/id6823942657?ppid=37d122ac-c72d-477e-a149-5519b1abf3f8">Get One Hot Summer on the App Store</a>
 <p>Free. No ads, nothing to buy. There's a water-ski game in it too - a boy learning to ski over eleven days of summer,
 and a one-ski Buoy Run with weekly Game Center scores.</p>
